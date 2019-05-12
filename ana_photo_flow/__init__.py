@@ -6,7 +6,9 @@ import contextlib
 import logging
 import os
 import os.path
+import traceback
 
+from celery import Celery
 import xdg
 
 
@@ -53,3 +55,28 @@ def init_config():
         config = config.new_child(newconfig)
     yield config
     config = {}
+
+
+@contextlib.contextmanager
+def init_app():
+    """Context manager initializing application on enter and shutting it down properly on exit.
+
+    The context manager returns the application object.
+    """
+    with init_config() as config:
+        logger = logging.getLogger()
+        logger.info('Starting ana_photo_flow...')
+        celery_config = config['celery']
+        app = Celery('ana_photo_flow')
+        app.conf.update(celery_config)
+        logger.debug('Celery started with following configuration:\n%s', app.conf.humanize())
+        try:
+            yield app
+        except Exception as err:
+            traceback.print_tb(err.__traceback__)
+            logging.error(str(err))
+        except KeyboardInterrupt:
+            logger.debug('Terminating as requested...')
+        finally:
+            logger.info('ana_photo_flow finished.')
+            logging.shutdown()

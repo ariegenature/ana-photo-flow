@@ -27,6 +27,19 @@ setup(
         'celery',
         'circus',
     ],
+    setup_requires=['pytest-runner'],
+    tests_require=['pytest'],
+    extras_require={
+        'dev': [
+            'check-manifest',
+            'bumpversion',
+            'flake8',
+            'pytest',
+            'readme_renderer',
+            'tox',
+            'twine',
+        ],
+    },
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Environment :: Console',

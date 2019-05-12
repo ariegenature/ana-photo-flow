@@ -18,17 +18,12 @@ setup(
     version="0.1.0.dev1",
     url="https://github.com/ariegenature/ana-photo-flow",
     license='MIT',
-
     author="Yann Voté",
     author_email="ygversil@lilo.org",
-
     description="Simple photos publishing workflow in use at association des naturalistes de l'Ariège (also CEN Ariège and CPIE Ariège).",
     long_description=read("README.rst"),
-
     packages=find_packages(exclude=('tests',)),
-
     install_requires=[],
-
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Environment :: Console',

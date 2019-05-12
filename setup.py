@@ -23,7 +23,10 @@ setup(
     description="Simple photos publishing workflow in use at association des naturalistes de l'Ariège (also CEN Ariège and CPIE Ariège).",
     long_description=read("README.rst"),
     packages=find_packages(exclude=('tests',)),
-    install_requires=[],
+    install_requires=[
+        'celery',
+        'circus',
+    ],
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Environment :: Console',

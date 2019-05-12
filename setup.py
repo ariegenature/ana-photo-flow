@@ -16,7 +16,7 @@ def read(filename):
 
 setup(
     name="ana_photo_flow",
-    version="0.1.0-dev1",
+    version="0.1.0-dev2",
     url="https://github.com/ariegenature/ana-photo-flow",
     license='MIT',
     author="Yann Voté",

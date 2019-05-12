@@ -42,6 +42,9 @@ setup(
             'twine',
         ],
     },
+    data_files=[
+        ('examples', ['ana_photo_flow.conf.example'])
+    ],
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Environment :: Console',

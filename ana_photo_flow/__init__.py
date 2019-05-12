@@ -1,5 +1,8 @@
 """ana_photo_flow main package."""
 
+from collections import ChainMap
+import configparser
+import contextlib
 import logging
 import os
 import os.path
@@ -30,3 +33,23 @@ _DEFAULT_CONFIG = {
                                    '%(levelname)s - %(task_name)s %(task_id)s - %(message)s'),
     },
 }
+
+
+@contextlib.contextmanager
+def init_config():
+    """Context manager initializing a configuration dictionary on enter and cleaning it up on exit.
+
+    The context manager returns the configuration dictionary.
+    """
+    config = ChainMap(_DEFAULT_CONFIG)
+    cfgparser = configparser.ConfigParser()
+    for cfgfname in _CONFIG_LOCATIONS:
+        if not cfgfname or not os.path.isfile(cfgfname):
+            continue
+        cfgparser.read(cfgfname)
+        newconfig = {section: _DEFAULT_CONFIG[section].copy() for section in cfgparser.sections()}
+        for section in cfgparser.sections():
+            newconfig[section].update(dict(cfgparser.items(section)))
+        config = config.new_child(newconfig)
+    yield config
+    config = {}

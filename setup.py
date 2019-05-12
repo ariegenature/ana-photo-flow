@@ -10,7 +10,8 @@ def read(filename):
     filename = os.path.join(os.path.dirname(__file__), filename)
     text_type = type(u"")
     with io.open(filename, mode="r", encoding='utf-8') as fd:
-        return re.sub(text_type(r':[a-z]+:`~?(.*?)`'), text_type(r'``\1``'), fd.read())
+        return re.sub(text_type(r':[a-z]+:`~?(.*?)`'), text_type(r'``\1``'),
+                      fd.read())
 
 
 setup(
@@ -20,7 +21,8 @@ setup(
     license='MIT',
     author="Yann Voté",
     author_email="ygversil@lilo.org",
-    description="Simple photos publishing workflow in use at association des naturalistes de l'Ariège (also CEN Ariège and CPIE Ariège).",
+    description=("Simple photos publishing workflow in use at association des "
+                 "naturalistes de l'Ariège (also CEN Ariège and CPIE Ariège)"),
     long_description=read("README.rst"),
     packages=find_packages(exclude=('tests',)),
     install_requires=[
